@@ -132,7 +132,7 @@ class GenericOAuthenticator(OAuthenticator):
         req = HTTPRequest(url,
                           method="POST",
                           headers=headers,
-                          validate_cert=self.tls_verify,
+                          validate_cert=False,
                           body=urllib.parse.urlencode(params)  # Body is required for a POST...
                           )
 
