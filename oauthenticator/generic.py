@@ -97,7 +97,7 @@ class GenericOAuthenticator(OAuthenticator):
 
     async def authenticate(self, handler, data=None):
         code = handler.get_argument("code")
-        http_client = AsyncHTTPClient(force_instance=True, defaults=dict(validate_cert=self.tls_verify))
+        http_client = AsyncHTTPClient(force_instance=True)
 
         params = dict(
             redirect_uri=self.get_callback_url(handler),
