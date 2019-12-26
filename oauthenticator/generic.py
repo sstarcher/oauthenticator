@@ -133,6 +133,7 @@ class GenericOAuthenticator(OAuthenticator):
                           method="POST",
                           headers=headers,
                           validate_cert=False,
+                          ca_certs=None,
                           body=urllib.parse.urlencode(params)  # Body is required for a POST...
                           )
 
