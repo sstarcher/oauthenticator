@@ -126,8 +126,9 @@ class GenericOAuthenticator(OAuthenticator):
             )
             headers.update({"Authorization": "Basic {}".format(b64key.decode("utf8"))})
 
-        print('checking tls verify here goes nothing')
+        print('checking tls verify here goes nothing2')
         print(self.tls_verify)
+        print(url)
         req = HTTPRequest(url,
                           method="POST",
                           headers=headers,
