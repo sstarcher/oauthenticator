@@ -134,7 +134,7 @@ class GenericOAuthenticator(OAuthenticator):
                           headers=headers,
                           validate_cert=False,
                           ca_certs='/etc/ssl/certs/ca-certificates.crt',
-                          ssl_options={'validate_cert': False},
+                          ssl_options={'ca_certs': '/etc/ssl/certs/ca-certificates.crt'},
                           body=urllib.parse.urlencode(params)  # Body is required for a POST...
                           )
 
