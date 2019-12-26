@@ -97,8 +97,7 @@ class GenericOAuthenticator(OAuthenticator):
 
     async def authenticate(self, handler, data=None):
         code = handler.get_argument("code")
-        # TODO: Configure the curl_httpclient for tornado
-        http_client = AsyncHTTPClient(force_instance=True, defaults=dict(validate_cert=False))
+        http_client = AsyncHTTPClient(force_instance=True, defaults=dict(validate_cert=self.tls_verify))
 
         params = dict(
             redirect_uri=self.get_callback_url(handler),
