@@ -3,23 +3,21 @@ Custom Authenticator to use generic OAuth2 with JupyterHub
 """
 
 
+import base64
 import json
 import os
-import base64
 import urllib
 
-from tornado.auth import OAuth2Mixin
 from tornado import web
-
+from tornado.auth import OAuth2Mixin
+from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 from tornado.httputil import url_concat
-from tornado.httpclient import HTTPRequest, AsyncHTTPClient
 
 from jupyterhub.auth import LocalAuthenticator
+from traitlets import Bool, Dict, Unicode, Union
 
-from traitlets import Unicode, Dict, Bool, Union
+from .oauth2 import OAuthenticator, OAuthLoginHandler
 from .traitlets import Callable
-
-from .oauth2 import OAuthLoginHandler, OAuthenticator
 
 
 class GenericEnvMixin(OAuth2Mixin):
@@ -100,7 +98,7 @@ class GenericOAuthenticator(OAuthenticator):
     async def authenticate(self, handler, data=None):
         code = handler.get_argument("code")
         # TODO: Configure the curl_httpclient for tornado
-        http_client = AsyncHTTPClient(force_instance=True, defaults=dict(validate_cert=self.tls_verify))
+        http_client = AsyncHTTPClient(defaults=dict(validate_cert=self.tls_verify))
 
         params = dict(
             redirect_uri=self.get_callback_url(handler),
